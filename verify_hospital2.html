@@ -9,6 +9,7 @@
         :root {
             --progress-width: 100%;
             --primary: #4285f4;
+            --rejection: red;
             --primary-dark: #3367d6;
             --secondary: #66bb6a;
             --secondary-dark: #4caf50;
@@ -185,6 +186,16 @@
         .btn-secondary:hover {
             background-color: #f5f5f5;
         }
+        
+        .btn-reject {
+            background-color: var(--rejection);
+            color: rgb(255, 4, 4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
 
         .status-bar {
             display: flex;
@@ -435,12 +446,6 @@
         <form id="submit-form">
             <div class="form-group full-width">
                 <label for="payment-method">Preferred Payment Method</label>
-                <select id="payment-method">
-                    <option value="bank-transfer" selected>Bank Transfer</option>
-                    <option value="credit-card">Credit Card Reimbursement</option>
-                    <option value="upi">UPI</option>
-                    <option value="wallet">Digital Wallet</option>
-                </select>
             </div>
             
             <div class="form-group full-width">
@@ -450,7 +455,8 @@
             
             <div class="buttons">
                 <button type="button" class="btn btn-secondary" id="back-btn">Back to Verification</button>
-                <button type="submit" class="btn btn-primary" id="submit-btn">Submit Claim</button>
+                <button type="submit" class="btn btn-primary" id="submit-btn">Approve Claim</button>
+                <button type="submit" class="btn btn-primary" id="reject-btn">Reject Claim</button>
             </div>
         </form>
         
