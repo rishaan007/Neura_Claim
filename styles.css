@@ -358,7 +358,7 @@ header {
 
 .feature-card {
     background-color: var(--white-10);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur;
     padding: 1.5rem;
     border-radius: 0.5rem;
     transition: all 0.3s ease;
