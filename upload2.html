@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>NeuraClaim - Upload Hospital Bill</title>
+ <style>
+:root {
+    --progress-width: 0%;
+    --primary: #4285f4;
+    --primary-dark: #3367d6;
+    --secondary: #66bb6a;
+    --secondary-dark: #4caf50;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #757575;
+    --white: #ffffff;
+    --error: #f44336;
+    --success: #4caf50;
+}
+
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+background-color: #f5f7fa;
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+ }
+.container {
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+width: 100%;
+max-width: 500px;
+padding: 40px;
+text-align: center;
+ }
+.logo {
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 30px;
+ }
+.logo-icon {
+background-color: #4285f4;
+color: white;
+width: 36px;
+height: 36px;
+border-radius: 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 10px;
+font-size: 20px;
+font-weight: bold;
+ }
+.logo-text {
+font-size: 24px;
+font-weight: 600;
+ }
+.logo-text span:first-child {
+color: #4285f4;
+ }
+.logo-text span:last-child {
+color: #66bb6a;
+ }
+h1 {
+font-size: 24px;
+color: #333;
+margin-bottom: 30px;
+font-weight: 500;
+text-align: center;
+ }
+.upload-area {
+border: 2px dashed #e0e0e0;
+border-radius: 8px;
+padding: 40px 20px;
+margin-bottom: 20px;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.upload-area:hover {
+border-color: #4285f4;
+ }
+.upload-icon {
+font-size: 48px;
+color: #4285f4;
+margin-bottom: 15px;
+ }
+.upload-text {
+color: #666;
+margin-bottom: 10px;
+ }
+.file-types {
+color: #999;
+font-size: 14px;
+ }
+.submit-btn {
+background-color: #4285f4;
+color: white;
+border: none;
+border-radius: 4px;
+padding: 12px 0;
+font-size: 16px;
+font-weight: 500;
+width: 100%;
+cursor: pointer;
+transition: background-color 0.3s ease;
+margin-top: 20px;
+ }
+.submit-btn:hover {
+background-color: #3367d6;
+ }
+.submit-btn:disabled {
+background-color: #a5c2f7;
+cursor: not-allowed;
+ }
+.file-info {
+display: none;
+text-align: left;
+margin-top: 20px;
+padding: 15px;
+background-color: #f5f7fa;
+border-radius: 4px;
+ }
+.file-name {
+font-weight: 500;
+color: #333;
+margin-bottom: 5px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+ }
+.file-size {
+color: #666;
+font-size: 14px;
+ }
+.remove-file {
+color: #f44336;
+cursor: pointer;
+font-size: 14px;
+ }
+.success-message {
+display: none;
+background-color: #e8f5e9;
+color: #2e7d32;
+padding: 15px;
+border-radius: 4px;
+margin-top: 20px;
+font-weight: 500;
+ }
+.success-icon {
+color: #2e7d32;
+font-size: 24px;
+margin-bottom: 10px;
+ }
+.hidden {
+display: none;
+ }
+.footer {
+margin-top: 30px;
+color: #666;
+font-size: 14px;
+ }
+.footer a {
+color: #4285f4;
+text-decoration: none;
+ }
+input[type="file"] {
+display: none;
+ }
+
+/* Status Bar Styles */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.status-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: 2px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.step-circle.active {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.step-circle.completed {
+    background-color: var(--success);
+    border-color: var(--success);
+    color: var(--white);
+}
+
+.step-label {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+.step-label.active {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.status-bar::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background-color: var(--medium-gray);
+    z-index: 1;
+}
+
+.status-bar::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: var(--progress-width);
+    height: 2px;
+    background-color: var(--primary);
+    z-index: 1;
+    transition: width 0.5s ease;
+}
+</style>
+</head>
+<body>
+ <div class="container">
+ <div class="logo">
+ <div class="logo-icon">+</div>
+ <div class="logo-text">
+ <span>Neura</span><span>Claim</span>
+ </div>
+ </div>
+
+ <div class="status-bar">
+    <div class="status-step">
+        <div class="step-circle active">1</div>
+        <div class="step-label active">Upload</div>
+    </div>
+    <div class="status-step">
+        <div class="step-circle">2</div>
+        <div class="step-label">Verify</div>
+    </div>
+    <div class="status-step">
+        <div class="step-circle">3</div>
+        <div class="step-label">Submit</div>
+    </div>
+ </div>
+
+ <h1>Upload Hospital Bill</h1>
+ <form id="upload-form">
+ <label for="file-upload" class="upload-area" id="drop-area">
+ <div class="upload-icon">+</div>
+ <div class="upload-text">Drag and drop your file here or click to browse</div>
+ <div class="file-types">Supported formats: PDF, JPG, PNG</div>
+ <input type="file" id="file-upload" accept=".pdf,.jpg,.jpeg,.png">
+ </label>
+ <div class="file-info" id="file-info">
+ <div class="file-name">
+ <span id="file-name-text">document.pdf</span>
+ <span class="remove-file" id="remove-file">Remove</span>
+ </div>
+ <div class="file-size" id="file-size">215 KB</div>
+ </div>
+ <button type="submit" class="submit-btn" id="submit-btn" disabled>
+    <a href="verify_vol1.html">Submit Bill</a>
+</button>
+ <div class="success-message" id="success-message">
+ <div class="success-icon">✓</div>
+ Bill Successfully Submitted
+ </div>
+ </form>
+ <div class="footer">
+ Need help? <a href="#">Contact Support</a>
+ </div>
+ </div>
+ <script>
+const fileUpload = document.getElementById('file-upload');
+const dropArea = document.getElementById('drop-area');
+const fileInfo = document.getElementById('file-info');
+const fileName = document.getElementById('file-name-text');
+const fileSize = document.getElementById('file-size');
+const removeFile = document.getElementById('remove-file');
+const submitBtn = document.getElementById('submit-btn');
+const uploadForm = document.getElementById('upload-form');
+const successMessage = document.getElementById('success-message');
+// Handle file selection
+ fileUpload.addEventListener('change', handleFileSelect);
+// Handle drag and drop
+ dropArea.addEventListener('dragover', (e) => {
+ e.preventDefault();
+ dropArea.style.borderColor = '#4285f4';
+ });
+ dropArea.addEventListener('dragleave', () => {
+ dropArea.style.borderColor = '#e0e0e0';
+ });
+ dropArea.addEventListener('drop', (e) => {
+ e.preventDefault();
+ dropArea.style.borderColor = '#e0e0e0';
+if (e.dataTransfer.files.length) {
+ fileUpload.files = e.dataTransfer.files;
+handleFileSelect();
+ }
+ });
+// Handle file removal
+ removeFile.addEventListener('click', (e) => {
+ e.stopPropagation();
+resetFileUpload();
+ });
+// Handle form submission
+ uploadForm.addEventListener('submit', (e) => {
+ e.preventDefault();
+// Simulate upload process
+ submitBtn.disabled = true;
+ submitBtn.textContent = 'Uploading...';
+setTimeout(() => {
+ submitBtn.style.display = 'none';
+ fileInfo.style.display = 'none';
+ dropArea.style.display = 'none';
+ successMessage.style.display = 'block';
+ 
+ // Update the status bar to show completion of upload step
+ document.querySelector('.step-circle.active').classList.remove('active');
+ document.querySelector('.step-circle.active').classList.add('completed');
+ document.querySelector('.step-circle.active').textContent = '✓';
+ 
+ // Update progress bar width
+ document.documentElement.style.setProperty('--progress-width', '33%');
+ 
+ // After 3 seconds, redirect to the verify page
+ setTimeout(() => {
+    // In a real application, this would redirect to verify.html
+    // For now, just reset the form
+    resetFileUpload();
+    submitBtn.style.display = 'block';
+    dropArea.style.display = 'block';
+    successMessage.style.display = 'none';
+ }, 3000);
+ }, 1500);
+ });
+function handleFileSelect() {
+if (fileUpload.files.length) {
+const file = fileUpload.files[0];
+// Display file info
+ fileName.textContent = file.name;
+ fileSize.textContent = formatFileSize(file.size);
+ fileInfo.style.display = 'block';
+ submitBtn.disabled = false;
+ }
+ }
+function resetFileUpload() {
+ fileUpload.value = '';
+ fileInfo.style.display = 'none';
+ submitBtn.disabled = true;
+ submitBtn.textContent = 'Submit Bill';
+ }
+function formatFileSize(bytes) {
+if (bytes === 0) return '0 Bytes';
+const k = 1024;
+const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+const i = Math.floor(Math.log(bytes) / Math.log(k));
+return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+ }
+</script>
+</body>
+</html>

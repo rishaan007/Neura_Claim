@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuraClaim - Verify Extracted Data</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary: #66bb6a;
+            --secondary-dark: #4caf50;
+            --light-blue: #7a2251;
+            --medium-gray: #9e8b8b;
+            --dark-gray: #757575;
+            --white: #ffffff;
+            --error: #f44336;
+            --success: #4caf50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle at center, #e6f4f7 0%, #c5e8f0 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            padding: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo-text span:first-child {
+            color: var(--primary);
+        }
+
+        .logo-text span:last-child {
+            color: var(--secondary);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #a49b9b;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+
+        input:disabled, select:disabled {
+            background-color: #f2eded;
+            cursor: not-allowed;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: rgb(92, 36, 36);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #700f83;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .success-icon {
+            color: #2e7d32;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">+</div>
+            <div class="logo-text">
+                <span>Neura</span><span>Claim</span>
+            </div>
+        </div>
+        <div id="form-container">
+            <h1>Verify Extracted Data</h1>
+            <p class="subtitle">Please review and correct the information extracted from your document</p>
+            
+            <form id="verify-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="insurance-id">Insurance ID</label>
+                        <input type="text" id="insurance-id" value="INS79246831" class="highlight" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Patient Name</label>
+                        <input type="text" id="name" value="Neha Iyer" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fathers-name">Father's Name</label>
+                        <input type="text" id="fathers-name" value="Vinod Iyer" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="aadhaar">Aadhaar Card</label>
+                        <input type="text" id="aadhaar" value="7890 1234 5678" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" disabled>
+                            <option value="female" selected>Female</option>
+                            <option value="male">Male</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blood-group">Blood Group</label>
+                        <select id="blood-group" disabled>
+                            <option value="A+">A+</option>
+                            <option value="A-" selected>A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" value="15, Vasundhara Enclave, Delhi" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospital-name">Hospital Name</label>
+                        <input type="text" id="hospital-name" value="VIMHANS" class="highlight" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doctor-name">Doctor Name</label>
+                        <input type="text" id="doctor-name" value="Dr. Preeti Shah" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-time">Appointment Time</label>
+                        <input type="text" id="appointment-time" value="2025-04-26 10:45 AM" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" value="9933224455" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="text" id="amount" value="85,000" class="highlight" disabled>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="claim-type">Claim Type</label>
+                        <select id="claim-type" disabled>
+                            <option value="medical" selected>Medical</option>
+                            <option value="surgical">Surgical</option>
+                            <option value="dental">Dental</option>
+                            <option value="maternity">Maternity</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button type="button" class="btn btn-secondary" id="edit-btn">Edit Information</button>
+                    <button type="submit" class="btn btn-primary" id="confirm-btn">Confirm & Continue</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="success-message" id="success-message">
+            <div class="success-icon">✓</div>
+            Information Verified Successfully
+        </div>
+        
+        <div class="footer">
+            Need help? <a href="#">Contact Support</a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const verifyForm = document.getElementById('verify-form');
+            const editBtn = document.getElementById('edit-btn');
+            const confirmBtn = document.getElementById('confirm-btn');
+            const inputs = document.querySelectorAll('input, select');
+            const formContainer = document.getElementById('form-container');
+            const successMessage = document.getElementById('success-message');
+            let isEditing = false;
+
+            // Handle edit information button
+            editBtn.addEventListener('click', function() {
+                if (!isEditing) {
+                    // Enable editing
+                    inputs.forEach(input => input.disabled = false);
+                    editBtn.textContent = 'Stop Editing';
+                    isEditing = true;
+                } else {
+                    // Disable editing
+                    inputs.forEach(input => input.disabled = true);
+                    editBtn.textContent = 'Edit Information';
+                    isEditing = false;
+                }
+            });
+            
+            // Handle form submission
+            verifyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Ensure all fields are verified before submission
+                if (isEditing) {
+                    alert('Please finish editing and press "Stop Editing" before submitting.');
+                    return;
+                }
+                
+                // Simulate form submission
+                confirmBtn.textContent = 'Processing...';
+                confirmBtn.disabled = true;
+                
+                setTimeout(() => {
+                    // Hide form and show success message
+                    formContainer.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Reset after 3 seconds
+                    setTimeout(() => {
+                        formContainer.style.display = 'block';
+                        successMessage.style.display = 'none';
+                        confirmBtn.textContent = 'Confirm & Continue';
+                        confirmBtn.disabled = false;
+                    }, 3000);
+                }, 1500);
+            });
+        });
+        
+    </script>
+</body>
+</html>

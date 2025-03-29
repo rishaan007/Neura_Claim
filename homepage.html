@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuraClaim - Insurance Claims Made Simple</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="left-section">
+                        <a href="/" class="logo">
+                            <span class="logo-neura">Neura</span><span class="logo-claim">Claim</span>
+                        </a>
+                        <nav class="main-nav">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="track.html">Track Status</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <div class="right-section">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        
+                        <div class="dropdown">
+                            <button class="btn btn-outline dropdown-toggle">
+                                <span>Claim</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="upload2.html">New Claim</a></li>
+                                <li><a href="track.html">Claim Status</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle">
+                                <span>Login</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="index.html">Login as Customer</a></li>
+                                <li><a href="hospital_login.html">Login as Hospital</a></li>
+                            </ul>
+                        </div>
+                        
+                        <button id="theme-toggle" class="btn btn-icon">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Insurance Claims Made Simple</h1>
+                        <p>NeuraClaim provides a seamless experience for processing and tracking your insurance claims with advanced technology and exceptional customer service.</p>
+                        <div class="hero-buttons">
+                            <a href="upload2.html" class="btn btn-success btn-lg">File a New Claim</a>
+                            <a href="track.html" class="btn btn-outline-white btn-lg">Track Your Claim</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="health_insurance.png" alt="Insurance Claim Illustration">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span>1</span>
+                        </div>
+                        <h3>Easy Claim Filing</h3>
+                        <p>Submit your insurance claims quickly and easily through our user-friendly platform.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span>2</span>
+                        </div>
+                        <h3>Real-time Tracking</h3>
+                        <p>Track the status of your claims in real-time with our advanced tracking system.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span>3</span>
+                        </div>
+                        <h3>Hospital Network</h3>
+                        <p>Access our extensive network of partner hospitals for cashless claim processing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Policy Section -->
+        <section class="policy">
+            <div class="container">
+                <div class="policy-card">
+                    <div class="policy-content">
+                        <div class="policy-text">
+                            <h2>Health Insurance Policy</h2>
+                            <p>Our comprehensive health insurance policy covers expenses incurred due to hospitalization for in-patient care, day care treatment, pre and post hospitalization expenses, and more.</p>
+                            <a href="#" class="btn btn-success">Learn More</a>
+                        </div>
+                        <div class="policy-image">
+                            <img src="policy_image.png" alt="Health Insurance Policy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3><span class="logo-neura">Neura</span><span class="logo-claim">Claim</span></h3>
+                        <p>Making insurance claims simple and hassle-free.</p>
+                        <p class="copyright">© <span id="current-year"></span> NeuraClaim. All rights reserved.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="track.html">Track Status</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Login</h4>
+                        <ul>
+                            <li><a href="index.html">Customer Login</a></li>
+                            <li><a href="hospital_login.html">Hospital Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <address>
+                            <p>Kolkata, West Bengal, India</p>
+                            <p>Email: rishaankumar.it2024@nsec.ac.in</p>
+                            <p>Phone: +91 7586020239</p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-theme');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            
+            if (body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Dropdown functionality
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                menu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target)) {
+                    menu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
