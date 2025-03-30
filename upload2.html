@@ -1,449 +1,812 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>NeuraClaim - Upload Hospital Bill</title>
- <style>
-:root {
-    --progress-width: 0%;
-    --primary: #4285f4;
-    --primary-dark: #3367d6;
-    --secondary: #66bb6a;
-    --secondary-dark: #4caf50;
-    --medium-gray: #e0e0e0;
-    --dark-gray: #757575;
-    --white: #ffffff;
-    --error: #f44336;
-    --success: #4caf50;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Processor</title>
+    <style>
+        :root {
+            --progress-width: 0%;
+            --primary: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary: #66bb6a;
+            --secondary-dark: #4caf50;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #757575;
+            --white: #ffffff;
+            --error: #f44336;
+            --success: #4caf50;
+        }
 
-body {
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-background-color: #f5f7fa;
-margin: 0;
-padding: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
- }
-.container {
-background-color: white;
-border-radius: 8px;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-width: 100%;
-max-width: 500px;
-padding: 40px;
-text-align: center;
- }
-.logo {
-display: flex;
-align-items: center;
-justify-content: center;
-margin-bottom: 30px;
- }
-.logo-icon {
-background-color: #4285f4;
-color: white;
-width: 36px;
-height: 36px;
-border-radius: 4px;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-right: 10px;
-font-size: 20px;
-font-weight: bold;
- }
-.logo-text {
-font-size: 24px;
-font-weight: 600;
- }
-.logo-text span:first-child {
-color: #4285f4;
- }
-.logo-text span:last-child {
-color: #66bb6a;
- }
-h1 {
-font-size: 24px;
-color: #333;
-margin-bottom: 30px;
-font-weight: 500;
-text-align: center;
- }
-.upload-area {
-border: 2px dashed #e0e0e0;
-border-radius: 8px;
-padding: 40px 20px;
-margin-bottom: 20px;
-cursor: pointer;
-transition: all 0.3s ease;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-}
-.upload-area:hover {
-border-color: #4285f4;
- }
-.upload-icon {
-font-size: 48px;
-color: #4285f4;
-margin-bottom: 15px;
- }
-.upload-text {
-color: #666;
-margin-bottom: 10px;
- }
-.file-types {
-color: #999;
-font-size: 14px;
- }
-.submit-btn {
-background-color: #4285f4;
-color: white;
-border: none;
-border-radius: 4px;
-padding: 12px 0;
-font-size: 16px;
-font-weight: 500;
-width: 100%;
-cursor: pointer;
-transition: background-color 0.3s ease;
-margin-top: 20px;
- }
-.submit-btn:hover {
-background-color: #3367d6;
- }
-.submit-btn:disabled {
-background-color: #a5c2f7;
-cursor: not-allowed;
- }
-.file-info {
-display: none;
-text-align: left;
-margin-top: 20px;
-padding: 15px;
-background-color: #f5f7fa;
-border-radius: 4px;
- }
-.file-name {
-font-weight: 500;
-color: #333;
-margin-bottom: 5px;
-display: flex;
-align-items: center;
-justify-content: space-between;
- }
-.file-size {
-color: #666;
-font-size: 14px;
- }
-.remove-file {
-color: #f44336;
-cursor: pointer;
-font-size: 14px;
- }
-.success-message {
-display: none;
-background-color: #e8f5e9;
-color: #2e7d32;
-padding: 15px;
-border-radius: 4px;
-margin-top: 20px;
-font-weight: 500;
- }
-.success-icon {
-color: #2e7d32;
-font-size: 24px;
-margin-bottom: 10px;
- }
-.hidden {
-display: none;
- }
-.footer {
-margin-top: 30px;
-color: #666;
-font-size: 14px;
- }
-.footer a {
-color: #4285f4;
-text-decoration: none;
- }
-input[type="file"] {
-display: none;
- }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 24px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-icon {
+            background-color: #4285f4;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .logo-text span:first-child {
+            color: #4285f4;
+        }
+        
+        .logo-text span:last-child {
+            color: #66bb6a;
+        }
+        
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .card h2 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 20px;
+        }
+        
+        .upload-container {
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .upload-container:hover {
+            border-color: #4285f4;
+        }
+        
+        .upload-container.highlight {
+            border-color: #4285f4;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #4285f4;
+            margin-bottom: 15px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .btn {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .btn:disabled {
+            background-color: #a5c2f7;
+            cursor: not-allowed;
+        }
+        
+        .btn-save {
+            background-color: #66bb6a;
+        }
+        
+        .btn-save:hover {
+            background-color: #4caf50;
+        }
+        
+        .btn-save a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .file-info {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: left;
+            background-color: #f5f7fa;
+            border-radius: 4px;
+            padding: 15px;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .file-size {
+            color: #666;
+        }
+        
+        .remove-file {
+            color: #f44336;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .processing-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #4285f4;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .extracted-fields {
+            margin-top: 20px;
+        }
+        
+        .field-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .field-label {
+            font-weight: 500;
+            width: 40%;
+            color: #333;
+        }
+        
+        .field-value {
+            width: 60%;
+            color: #555;
+        }
+        
+        .result-container {
+            margin-top: 20px;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            margin-right: -1px;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            background-color: #f1f3f4;
+        }
+        
+        .tab.active {
+            background-color: white;
+            border-bottom-color: white;
+            color: #4285f4;
+        }
+        
+        .tab-content {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: white;
+        }
+        
+        .raw-text {
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #555;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
 
-/* Status Bar Styles */
-.status-bar {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    position: relative;
-}
+        .status-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            flex: 1;
+        }
 
-.status-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-    flex: 1;
-}
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
 
-.step-circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: var(--white);
-    border: 2px solid var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--primary);
-}
+        .step-circle.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
 
-.step-circle.active {
-    background-color: var(--primary);
-    color: var(--white);
-}
+        .step-circle.completed {
+            background-color: var(--success);
+            border-color: var(--success);
+            color: var(--white);
+        }
 
-.step-circle.completed {
-    background-color: var(--success);
-    border-color: var(--success);
-    color: var(--white);
-}
+        .step-label {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
 
-.step-label {
-    font-size: 14px;
-    color: #666;
-    text-align: center;
-}
+        .step-label.active {
+            color: var(--primary);
+            font-weight: 500;
+        }
 
-.step-label.active {
-    color: var(--primary);
-    font-weight: 500;
-}
+        .status-bar::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            height: 2px;
+            background-color: var(--medium-gray);
+            z-index: 1;
+        }
 
-.status-bar::before {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    height: 2px;
-    background-color: var(--medium-gray);
-    z-index: 1;
-}
-
-.status-bar::after {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: var(--progress-width);
-    height: 2px;
-    background-color: var(--primary);
-    z-index: 1;
-    transition: width 0.5s ease;
-}
-</style>
+        .status-bar::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: var(--progress-width);
+            height: 2px;
+            background-color: var(--primary);
+            z-index: 1;
+            transition: width 0.5s ease;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .footer a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
- <div class="container">
- <div class="logo">
- <div class="logo-icon">+</div>
- <div class="logo-text">
- <span>Neura</span><span>Claim</span>
- </div>
- </div>
-
- <div class="status-bar">
-    <div class="status-step">
-        <div class="step-circle active">1</div>
-        <div class="step-label active">Upload</div>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">+</div>
+            <div class="logo-text">
+                <span>Neura</span><span>Claim</span>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-step">
+                <div class="step-circle active">1</div>
+                <div class="step-label active">Upload</div>
+            </div>
+            <div class="status-step">
+                <div class="step-circle">2</div>
+                <div class="step-label">Verify</div>
+            </div>
+            <div class="status-step">
+                <div class="step-circle">3</div>
+                <div class="step-label">Submit</div>
+            </div>
+         </div>
+        
+        <h1>Information Extracter</h1>
+        
+        <div class="card-container">
+            <div class="card">
+                <h2>Upload Hospital Bill</h2>
+                <div id="dropZone" class="upload-container">
+                    <div class="upload-icon">+</div>
+                    <p>Drag & drop your document here or click to browse</p>
+                    <p class="file-types">Accepts PDF, PNG, JPG, JPEG</p>
+                    <input type="file" id="fileInput" class="hidden" accept=".pdf,.png,.jpg,.jpeg">
+                </div>
+                
+                <div id="fileInfo" class="file-info hidden">
+                    <div class="file-name">
+                        <span id="fileName">document.pdf</span>
+                        <span class="remove-file" id="removeFile">Remove</span>
+                    </div>
+                    <div class="file-size" id="fileSize">215 KB</div>
+                    <div class="btn-container" style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button id="processBtn" class="btn" disabled>Process Document</button>
+                        <button id="saveBtn" class="btn btn-save" disabled>
+                            <a href="Frontend/user_form.html">Save to Database</a>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="processingIndicator" class="hidden">
+                    <div class="processing-spinner"></div>
+                    <p style="text-align: center; color: #666;">Processing document...</p>
+                </div>
+                
+                <div id="alertContainer" class="hidden">
+                    <!-- Alerts will be added here -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Extracted Information</h2>
+                
+                <div id="noDataMessage">
+                    <p style="color: #666; text-align: center;">Upload and process a document to view extracted information</p>
+                </div>
+                
+                <div id="resultContainer" class="result-container hidden">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="fields">Extracted Fields</div>
+                        <div class="tab" data-tab="raw">Raw Text</div>
+                    </div>
+                    
+                    <div class="tab-content" id="fieldsTab">
+                        <div id="extractedFields" class="extracted-fields">
+                            <!-- Extracted fields will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content hidden" id="rawTab">
+                        <div id="rawText" class="raw-text">
+                            <!-- Raw text will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Need help? <a href="#">Contact Support</a>
+        </div>
     </div>
-    <div class="status-step">
-        <div class="step-circle">2</div>
-        <div class="step-label">Verify</div>
-    </div>
-    <div class="status-step">
-        <div class="step-circle">3</div>
-        <div class="step-label">Submit</div>
-    </div>
- </div>
-
- <h1>Upload Hospital Bill</h1>
- <form id="upload-form">
- <label for="file-upload" class="upload-area" id="drop-area">
- <div class="upload-icon">+</div>
- <div class="upload-text">Drag and drop your file here or click to browse</div>
- <div class="file-types">Supported formats: PDF, JPG, PNG</div>
- <input type="file" id="file-upload" accept=".pdf,.jpg,.jpeg,.png">
- </label>
- <div class="file-info" id="file-info">
- <div class="file-name">
- <span id="file-name-text">document.pdf</span>
- <span class="remove-file" id="remove-file">Remove</span>
- </div>
- <div class="file-size" id="file-size">215 KB</div>
- </div>
- <button type="submit" class="submit-btn" id="submit-btn" disabled>
-    <a href="verify_vol1.html">Submit Bill</a>
-</button>
- <div class="success-message" id="success-message">
- <div class="success-icon">✓</div>
- Bill Successfully Submitted
- </div>
- </form>
- <div class="footer">
- Need help? <a href="#">Contact Support</a>
- </div>
- </div>
- <script>
-const fileUpload = document.getElementById('file-upload');
-const dropArea = document.getElementById('drop-area');
-const fileInfo = document.getElementById('file-info');
-const fileName = document.getElementById('file-name-text');
-const fileSize = document.getElementById('file-size');
-const removeFile = document.getElementById('remove-file');
-const submitBtn = document.getElementById('submit-btn');
-const uploadForm = document.getElementById('upload-form');
-const successMessage = document.getElementById('success-message');
-// Handle file selection
- fileUpload.addEventListener('change', handleFileSelect);
-// Handle drag and drop
- dropArea.addEventListener('dragover', (e) => {
- e.preventDefault();
- dropArea.style.borderColor = '#4285f4';
- });
- dropArea.addEventListener('dragleave', () => {
- dropArea.style.borderColor = '#e0e0e0';
- });
- dropArea.addEventListener('drop', (e) => {
- e.preventDefault();
- dropArea.style.borderColor = '#e0e0e0';
-if (e.dataTransfer.files.length) {
- fileUpload.files = e.dataTransfer.files;
-handleFileSelect();
- }
- });
-// Handle file removal
- removeFile.addEventListener('click', (e) => {
- e.stopPropagation();
-resetFileUpload();
- });
-// Handle form submission
- uploadForm.addEventListener('submit', (e) => {
- e.preventDefault();
-// Simulate upload process
- submitBtn.disabled = true;
- submitBtn.textContent = 'Uploading...';
-setTimeout(() => {
- submitBtn.style.display = 'none';
- fileInfo.style.display = 'none';
- dropArea.style.display = 'none';
- successMessage.style.display = 'block';
- 
- // Update the status bar to show completion of upload step
- document.querySelector('.step-circle.active').classList.remove('active');
- document.querySelector('.step-circle.active').classList.add('completed');
- document.querySelector('.step-circle.active').textContent = '✓';
- 
- // Update progress bar width
- document.documentElement.style.setProperty('--progress-width', '33%');
- 
- // After 3 seconds, redirect to the verify page
- setTimeout(() => {
-    // In a real application, this would redirect to verify.html
-    // For now, just reset the form
-    resetFileUpload();
-    submitBtn.style.display = 'block';
-    dropArea.style.display = 'block';
-    successMessage.style.display = 'none';
- }, 3000);
- }, 1500);
- });
-function handleFileSelect() {
-if (fileUpload.files.length) {
-const file = fileUpload.files[0];
-// Display file info
- fileName.textContent = file.name;
- fileSize.textContent = formatFileSize(file.size);
- fileInfo.style.display = 'block';
- submitBtn.disabled = false;
- }
- }
-function resetFileUpload() {
- fileUpload.value = '';
- fileInfo.style.display = 'none';
- submitBtn.disabled = true;
- submitBtn.textContent = 'Submit Bill';
- }
-function formatFileSize(bytes) {
-if (bytes === 0) return '0 Bytes';
-const k = 1024;
-const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-const i = Math.floor(Math.log(bytes) / Math.log(k));
-return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
- }
- // Function to upload and process a document
-async function processDocument(file) {
-    const formData = new FormData();
-    formData.append('file', file);
     
-    try {
-        const response = await fetch('http://localhost:8000/process/', {
-            method: 'POST',
-            body: formData,
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const removeFile = document.getElementById('removeFile');
+            const processBtn = document.getElementById('processBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const processingIndicator = document.getElementById('processingIndicator');
+            const alertContainer = document.getElementById('alertContainer');
+            const noDataMessage = document.getElementById('noDataMessage');
+            const resultContainer = document.getElementById('resultContainer');
+            const extractedFields = document.getElementById('extractedFields');
+            const rawText = document.getElementById('rawText');
+            
+            // API endpoint
+            const apiUrl = 'http://localhost:8000';
+            
+            // Current file and extracted data
+            let currentFile = null;
+            let extractedData = null;
+            
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Deactivate all tabs and hide all contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.add('hidden'));
+                    
+                    // Activate selected tab and show its content
+                    tab.classList.add('active');
+                    document.getElementById(`${tabId}Tab`).classList.remove('hidden');
+                });
+            });
+            
+            // Initialize drag and drop
+            dropZone.addEventListener('click', () => fileInput.click());
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('highlight');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('highlight');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('highlight');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length) {
+                    handleFile(fileInput.files[0]);
+                }
+            });
+            
+            // Remove file button
+            removeFile.addEventListener('click', () => {
+                resetFileUpload();
+            });
+            
+            // Handle the selected file
+            function handleFile(file) {
+                const validTypes = ['application/pdf', 'image/png', 'image/jpeg'];
+                
+                if (!validTypes.includes(file.type)) {
+                    showAlert('Invalid file format. Please upload a PDF, PNG, or JPG file.', 'error');
+                    return;
+                }
+                
+                currentFile = file;
+                
+                // Display file information
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.classList.remove('hidden');
+                processBtn.disabled = false;
+                
+                // Clear any previous results
+                extractedFields.innerHTML = '';
+                rawText.textContent = '';
+                resultContainer.classList.add('hidden');
+                noDataMessage.classList.remove('hidden');
+                saveBtn.disabled = true;
+                
+                // Clear any alerts
+                alertContainer.innerHTML = '';
+                alertContainer.classList.add('hidden');
+            }
+            
+            // Reset file upload
+            function resetFileUpload() {
+                fileInput.value = '';
+                fileInfo.classList.add('hidden');
+                currentFile = null;
+                
+                // Disable buttons
+                processBtn.disabled = true;
+                saveBtn.disabled = true;
+            }
+            
+            // Process the document
+            processBtn.addEventListener('click', async () => {
+                if (!currentFile) return;
+                
+                // Show processing indicator
+                processingIndicator.classList.remove('hidden');
+                processBtn.disabled = true;
+                
+                // Create form data
+                const formData = new FormData();
+                formData.append('file', currentFile);
+                
+                try {
+                    const response = await fetch(`${apiUrl}/process/`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Hide processing indicator
+                    processingIndicator.classList.add('hidden');
+                    processBtn.disabled = false;
+                    
+                    if (data.success) {
+                        // Store the extracted data
+                        extractedData = data;
+                        
+                        // Display the results
+                        displayExtractedData(data);
+                        
+                        // Enable save button
+                        saveBtn.disabled = false;
+                        
+                        // Update progress bar
+                        document.documentElement.style.setProperty('--progress-width', '33%');
+                        
+                        showAlert('Document processed successfully', 'success');
+                    } else {
+                        showAlert(`Error: ${data.message}`, 'error');
+                    }
+                } catch (error) {
+                    processingIndicator.classList.add('hidden');
+                    processBtn.disabled = false;
+                    showAlert(`Error processing document: ${error.message}`, 'error');
+                }
+            });
+            
+            // Save to database
+            saveBtn.addEventListener('click', async () => {
+                if (!currentFile || !extractedData) return;
+                
+                // Check if Insurance ID is available
+                const hasInsuranceId = extractedData.extracted_info.some(
+                    item => item.Label === 'Insurance ID'
+                );
+                
+                if (!hasInsuranceId) {
+                    showAlert('Cannot save to database: Insurance ID not found in the document.', 'error');
+                    return;
+                }
+                
+                // Show processing indicator
+                processingIndicator.classList.remove('hidden');
+                saveBtn.disabled = true;
+                
+                try {
+                    // Create proper data structure for saving to database
+                    const formData = new FormData();
+                    formData.append('file', currentFile);
+                    
+                    // Add all extracted information to the form data
+                    extractedData.extracted_info.forEach(field => {
+                        formData.append(field.Label.toLowerCase().replace(/['\s]/g, '_'), field.Text);
+                    });
+                    
+                    const response = await fetch(`${apiUrl}/save-to-database/`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Hide processing indicator
+                    processingIndicator.classList.add('hidden');
+                    saveBtn.disabled = false;
+                    
+                    if (data.success) {
+                        // Update the step indicator
+                        document.querySelector('.step-circle.active').classList.remove('active');
+                        document.querySelector('.step-circle.active').classList.add('completed');
+                        document.querySelector('.step-label.active').classList.remove('active');
+                        document.querySelectorAll('.step-circle')[1].classList.add('active');
+                        document.querySelectorAll('.step-label')[1].classList.add('active');
+                        
+                        // Update progress bar
+                        document.documentElement.style.setProperty('--progress-width', '66%');
+                        
+                        showAlert('Data saved to database successfully', 'success');
+                        
+                        // Redirect to the verification form with the ID
+                        const insuranceId = extractedData.extracted_info.find(
+                            item => item.Label === 'Insurance ID'
+                        )?.Text;
+                        
+                        if (insuranceId) {
+                            window.location.href = `verify-form.html?id=${encodeURIComponent(insuranceId)}`;
+                        } else {
+                            window.location.href = 'verify-form.html'; // Fallback without ID
+                        }
+                    } else {
+                        showAlert(`Error saving to database: ${data.message}`, 'error');
+                    }
+                } catch (error) {
+                    processingIndicator.classList.add('hidden');
+                    saveBtn.disabled = false;
+                    showAlert(`Error saving to database: ${error.message}`, 'error');
+                }
+            });
+            
+            // Display extracted data
+            function displayExtractedData(data) {
+                // Show results container
+                noDataMessage.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+                
+                // Display raw text
+                rawText.textContent = data.extracted_text;
+                
+                // Display extracted fields
+                extractedFields.innerHTML = '';
+                
+                // Sort fields in logical order
+                const fieldOrder = [
+                    'Name', 'Father\'s Name', 'Aadhar Card', 'Gender', 'Blood Group',
+                    'Address', 'Phone Number', 'Hospital Name', 'Insurance ID',
+                    'Disease Name', 'Disease Details', 'Medicines', 
+                    'Bed Type', 'Ventilation', 'Amount', 'Other Charges'
+                ];
+                
+                // Create a copy of the data that we can sort
+                const sortedFields = [...data.extracted_info].sort((a, b) => {
+                    const indexA = fieldOrder.indexOf(a.Label);
+                    const indexB = fieldOrder.indexOf(b.Label);
+                    
+                    // If both fields are in our order list, sort by that order
+                    if (indexA !== -1 && indexB !== -1) {
+                        return indexA - indexB;
+                    }
+                    
+                    // If only one field is in our order list, it comes first
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+                    
+                    // If neither field is in our order list, sort alphabetically
+                    return a.Label.localeCompare(b.Label);
+                });
+                
+                // Add each field
+                sortedFields.forEach(field => {
+                    const fieldItem = document.createElement('div');
+                    fieldItem.className = 'field-item';
+                    
+                    const label = document.createElement('div');
+                    label.className = 'field-label';
+                    label.textContent = field.Label;
+                    
+                    const value = document.createElement('div');
+                    value.className = 'field-value';
+                    value.textContent = field.Text;
+                    
+                    fieldItem.appendChild(label);
+                    fieldItem.appendChild(value);
+                    extractedFields.appendChild(fieldItem);
+                });
+                
+                // If no fields were extracted
+                if (sortedFields.length === 0) {
+                    const noFields = document.createElement('p');
+                    noFields.textContent = 'No fields could be extracted from this document.';
+                    extractedFields.appendChild(noFields);
+                }
+            }
+            
+            // Helper function to format file size
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' bytes';
+                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                else return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+            
+            // Show alert message
+            function showAlert(message, type) {
+                // Create alert element
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+                
+                // Clear previous alerts
+                alertContainer.innerHTML = '';
+                alertContainer.appendChild(alert);
+                alertContainer.classList.remove('hidden');
+                
+                // Auto-hide alert after 5 seconds
+                setTimeout(() => {
+                    alert.remove();
+                    if (alertContainer.children.length === 0) {
+                        alertContainer.classList.add('hidden');
+                    }
+                }, 5000);
+            }
         });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // Display the results in your UI
-            console.log("Extracted info:", result.extracted_info);
-            return result;
-        } else {
-            alert("Error: " + result.message);
-            return null;
-        }
-    } catch (error) {
-        console.error("Error processing document:", error);
-        alert("Error processing document. See console for details.");
-        return null;
-    }
-}
-
-// Function to save the processed data to database
-async function saveToDatabase(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    try {
-        const response = await fetch('http://localhost:8000/save-to-database/', {
-            method: 'POST',
-            body: formData,
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            alert("Data saved successfully!");
-            return true;
-        } else {
-            alert("Error saving data: " + result.message);
-            return false;
-        }
-    } catch (error) {
-        console.error("Error saving to database:", error);
-        alert("Error saving to database. See console for details.");
-        return false;
-    }
-}
-</script>
+    </script>
 </body>
 </html>
