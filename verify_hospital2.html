@@ -189,10 +189,10 @@
         
         .btn-reject {
             background-color: var(--rejection);
-            color: rgb(255, 4, 4);
+            text-decoration: none;
         }
 
-        .btn-primary:hover {
+        .btn-reject:hover {
             background-color: var(--primary-dark);
         }
 
@@ -456,7 +456,7 @@
             <div class="buttons">
                 <button type="button" class="btn btn-secondary" id="back-btn">Back to Verification</button>
                 <button type="submit" class="btn btn-primary" id="submit-btn">Approve Claim</button>
-                <button type="submit" class="btn btn-primary" id="reject-btn">Reject Claim</button>
+                <button type="submit" class="btn btn-reject" id="reject-btn"> <a href="sorry.html">Reject Claim</a></button>
             </div>
         </form>
         
@@ -520,9 +520,6 @@
                         <h1>Claim Submitted</h1>
                         <p class="subtitle">Thank you for using NeuraClaim. Your claim is being processed.</p>
                         
-                        <div class="reference-number">
-                            Reference Number: CLM-259874
-                        </div>
                         
                         <p class="subtitle" style="margin-top: 20px;">A confirmation email has been sent to your registered email address.</p>
                         
@@ -530,6 +527,7 @@
                             <button type="button" class="btn btn-primary" onclick="window.location.href='dashboard.html'">
                                 <a href="index.html">Back to Home</a>
                                 </button>
+                                </button> 
                         </div>
                         
                         <div class="footer">
