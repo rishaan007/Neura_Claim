@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuraClaim - Reject Claim</title>
+    <style>
+        /* NeuraClaim Theme */
+        :root {
+            --background-color: #e6f2f5;
+            --primary-color: #4a7bff;
+            --primary-hover: #3a6ae6;
+            --danger-color: #e53935;
+            --danger-hover: #c62828;
+            --text-color: #333333;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --card-background: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+        }
+
+        .close-button:hover {
+            color: var(--text-color);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .claim-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+
+        .claim-label {
+            color: var(--text-secondary);
+        }
+
+        .claim-value {
+            font-weight: 500;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-label {
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 0.875rem;
+            margin-top: 8px;
+        }
+
+        textarea:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 1px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .checkbox-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .checkbox-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .checkbox-description {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background-color: #f0f0f0;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        /* Custom radio and checkbox styles */
+        input[type="radio"], input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            border-radius: 3px;
+        }
+
+        input[type="radio"]:checked {
+            border: 4px solid var(--primary-color);
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            position: relative;
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: "✓";
+            color: white;
+            position: absolute;
+            font-size: 12px;
+            top: -1px;
+            left: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Claim Review Page (Background) -->
+    <div style="text-align: center; width: 100%;">
+        <h2>Review your claim information before final submission</h2>
+        <button id="rejectClaimBtn" class="btn btn-danger" style="margin-top: 20px;">Reject Claim</button>
+    </div>
+
+    <!-- Modal (Initially Hidden) -->
+    <div id="rejectionModal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Reject Claim</h2>
+                <button class="close-button" id="closeModal">✕</button>
+            </div>
+            <form id="rejectionForm">
+                <div class="modal-body">
+                    <div class="section">
+                        <h3 class="section-title">Claim Information</h3>
+                        <div class="claim-info">
+                            <div class="claim-label">Insurance ID:</div>
+                            <div class="claim-value">INS79246831</div>
+                            <div class="claim-label">Patient Name:</div>
+                            <div class="claim-value">Neha Iyer</div>
+                            <div class="claim-label">Total Amount:</div>
+                            <div class="claim-value">₹85,000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h3 class="section-title">Reason for Rejection</h3>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="incomplete" name="rejectionReason" value="incomplete" checked>
+                                <label class="radio-label" for="incomplete">Incomplete documentation</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="coverage" name="rejectionReason" value="coverage">
+                                <label class="radio-label" for="coverage">Not covered by policy</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="duplicate" name="rejectionReason" value="duplicate">
+                                <label class="radio-label" for="duplicate">Duplicate claim</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="other" name="rejectionReason" value="other">
+                                <label class="radio-label" for="other">Other reason</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <label for="comments" class="section-title">Additional Comments</label>
+                        <textarea id="comments" name="comments" placeholder="Please provide details about the rejection reason..."></textarea>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="notifyPatient" name="notifyPatient">
+                        <div class="checkbox-content">
+                            <label for="notifyPatient" class="checkbox-label">Notify patient via email</label>
+                            <p class="checkbox-description">An email will be sent to the patient with rejection details</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-danger">
+                        <a href="index.html" >Confirm Rejection</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const rejectClaimBtn = document.getElementById('rejectClaimBtn');
+        const rejectionModal = document.getElementById('rejectionModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const rejectionForm = document.getElementById('rejectionForm');
+
+        // Show modal when Reject Claim button is clicked
+        rejectClaimBtn.addEventListener('click', () => {
+            rejectionModal.style.display = 'flex';
+        });
+
+        // Hide modal when close button is clicked
+        closeModal.addEventListener('click', () => {
+            rejectionModal.style.display = 'none';
+        });
+
+        // Hide modal when cancel button is clicked
+        cancelBtn.addEventListener('click', () => {
+            rejectionModal.style.display = 'none';
+        });
+
+        // Form submission
+        rejectionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(rejectionForm);
+            const rejectionReason = formData.get('rejectionReason');
+            const comments = formData.get('comments');
+            const notifyPatient = formData.get('notifyPatient') ? true : false;
+            
+            // Here you would typically send this data to your server
+            console.log({
+                rejectionReason,
+                comments,
+                notifyPatient,
+                claimId: 'INS79246831'
+            });
+            
+            // Show success message
+            alert('Claim rejected successfully');
+            
+            // Close modal
+            rejectionModal.style.display = 'none';
+        });
+
+        // Close modal if clicked outside
+        window.addEventListener('click', (e) => {
+            if (e.target === rejectionModal) {
+                rejectionModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
